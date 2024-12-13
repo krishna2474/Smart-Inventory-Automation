@@ -1,0 +1,63 @@
+import { ContinueWithGoogle } from "./ContinueWithGoogle";
+import { ContinueWithApple } from "./AppleSignup";
+import { SignupForm } from "./SignupForm";
+import { useRecoilValue } from "recoil";
+import { menuState } from "../atoms/menuAtom";
+import { motion } from "motion/react";
+
+type FormAreaProps = {
+  type: "signup" | "signin";
+};
+
+export const FormArea = ({ type }: FormAreaProps) => {
+  const isMenuOpen = useRecoilValue(menuState);
+  return (
+    <motion.div
+      initial={{
+        opacity: 0,
+        y: 100, // Start the div from 100px below its final position
+      }}
+      animate={{
+        opacity: 1,
+        y: 0, // Animate to its final position (y: 0)
+        transition: { duration: 1, type: "spring", stiffness: 30 }, // Smooth spring animation
+      }}
+      className={`relative bottom-6 flex justify-center items-center min-h-screen font-nunito ${
+        isMenuOpen ? "mt-72" : ""
+      }`}
+    >
+      <div
+        className={`mb-10 mr-10 ml-10 rounded-2xl h-auto ${
+          type === "signin" ? "sm:h-[480px]" : "sm:h-[510px]"
+        } w-full sm:w-[850px] bg-white/10 backdrop-blur-3xl border border-white/50`}
+      >
+        <div className="flex justify-center pt-10 font-bebas text-5xl sm:text-6xl text-white">
+          {type === "signup" ? "Signup" : "Login"}
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 p-5 sm:p-10">
+          <div className="flex flex-col items-center">
+            <div className="hidden sm:block">
+              <img
+                className="relative bottom-8"
+                src={"/assets/Smart Inventory Automation-Dark.png"}
+                width={320}
+                height={110}
+                alt="Logo"
+              />
+            </div>
+            <div>
+              <ContinueWithGoogle onClick={() => {}} />
+            </div>
+            <div className="mt-5">
+              <ContinueWithApple onClick={() => {}} />
+            </div>
+          </div>
+
+          <div className="flex justify-center">
+            <SignupForm type={type} />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
