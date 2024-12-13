@@ -15,21 +15,21 @@ export const FormArea = ({ type }: FormAreaProps) => {
     <motion.div
       initial={{
         opacity: 0,
-        y: 100, // Start the div from 100px below its final position
+        y: 100,
       }}
       animate={{
         opacity: 1,
-        y: 0, // Animate to its final position (y: 0)
+        y: 0,
         transition: { duration: 1, type: "spring", stiffness: 30 }, // Smooth spring animation
       }}
-      className={`relative bottom-6 flex justify-center items-center min-h-screen font-nunito ${
-        isMenuOpen ? "mt-72" : ""
+      className={`relative  flex justify-center items-center min-h-screen font-nunito ${
+        isMenuOpen ? "mt-96" : ""
       }`}
     >
       <div
         className={`mb-10 mr-10 ml-10 rounded-2xl h-auto ${
-          type === "signin" ? "sm:h-[480px]" : "sm:h-[510px]"
-        } w-full sm:w-[850px] bg-white/10 backdrop-blur-3xl border border-white/50`}
+          type === "signin" ? "sm:h-[480px]" : "sm:h-full"
+        } w-full sm:w-[850px] bg-white/10 backdrop-blur-3xl border border-white/50 `}
       >
         <div className="flex justify-center pt-10 font-bebas text-5xl sm:text-6xl text-white">
           {type === "signup" ? "Signup" : "Login"}

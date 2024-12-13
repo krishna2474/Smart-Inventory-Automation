@@ -1,21 +1,23 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
 type FormAreaProps = {
   type: "signup" | "signin";
 };
-type formData = {
-  name: string;
-  email: string;
-  password: string;
-};
+
 export const SignupForm = ({ type }: FormAreaProps) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<formData>();
+    watch,
+  } = useForm();
+
+  // Watch the password field to compare it with the confirm password
+  const password = watch("password");
+
   const onSubmit = handleSubmit((data) => console.log(data));
+
   return (
     <div
       className={`relative bottom-5 flex flex-col items-center justify-center font-nunito ${
@@ -32,7 +34,7 @@ export const SignupForm = ({ type }: FormAreaProps) => {
             <span className="mx-4 text-white">or</span>
             <hr className="flex-grow border-t border-white" />
           </div>
-          <div className="hidden sm:flex sm:flex-col  sm:justify-center sm:items-center  sm:text-sm sm:text-white">
+          <div className="hidden sm:flex sm:flex-col sm:justify-center sm:items-center sm:text-sm sm:text-white">
             <p className="text-center sm:text-center">
               {type === "signup"
                 ? "Already have an account? "
@@ -49,7 +51,10 @@ export const SignupForm = ({ type }: FormAreaProps) => {
           {/* Full Name Input (Only for Signup) */}
           <div>
             <input
-              {...(register("name"), { required: type === "signup", min: 3 })}
+              {...register("name", {
+                required: type === "signup",
+                minLength: 3,
+              })}
               type="text"
               name="name"
               id="name"
@@ -58,35 +63,69 @@ export const SignupForm = ({ type }: FormAreaProps) => {
               }`}
               placeholder="Full Name"
             />
+            {errors["name"] && (
+              <p className="text-red-500 text-sm truncate">
+                Full name is required and must be at least 3 characters long.
+              </p>
+            )}
           </div>
 
           {/* Email Input */}
           <div>
             <input
-              {...(register("email"), { required: true })}
-              type="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                  message: "Please enter a valid email address",
+                },
+              })}
+              type="text"
               name="email"
               id="email"
               className="text-gray-900 text-sm rounded-lg block w-full p-2.5"
               placeholder="Email"
             />
+
+            {/* Display error message */}
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email?.message + ""}
+              </p>
+            )}
           </div>
 
           {/* Password Input */}
           <div>
             <input
-              {...(register("password"), { required: true })}
+              {...register("password", {
+                required: true,
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters long",
+                },
+              })}
               type="password"
               name="password"
               id="password"
               placeholder="••••••••"
               className="text-gray-900 text-sm rounded-lg block w-full p-2.5"
             />
+            {errors["password"] && (
+              <p className="text-red-500 text-sm">
+                {errors["password"]?.message + "" || "Password is required."}
+              </p>
+            )}
           </div>
 
           {/* Confirm Password Input (Only for Signup) */}
           <div>
             <input
+              {...register("confirm-password", {
+                required: type === "signup",
+                validate: (value) =>
+                  value === password || "Passwords do not match", // Custom validation
+              })}
               type="password"
               name="confirm-password"
               id="confirm-password"
@@ -95,27 +134,44 @@ export const SignupForm = ({ type }: FormAreaProps) => {
                 type === "signin" ? "hidden" : ""
               }`}
             />
+            {errors["confirm-password"] && (
+              <p className="text-red-500 text-sm">
+                {errors["confirm-password"]?.message + ""}
+              </p>
+            )}
           </div>
 
           {/* Checkbox for Terms and Conditions (Only for Signup) */}
           <div
-            className={`${type === "signin" ? "hidden" : ""} flex items-center`}
+            className={`${
+              type === "signin" ? "hidden" : ""
+            } flex flex-col items-start`}
           >
-            <input
-              id="link-checkbox"
-              type="checkbox"
-              className="w-4 h-4 text-customPurple bg-transparent border-gray-300 rounded focus:ring-customPurple transition duration-200 ease-in-out"
-            />
-            <label className="ms-2 text-sm font-medium dark:text-gray-300">
-              I agree with the{" "}
-              <a
-                href="#"
-                className="relative font-medium after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-blue-500 after:transition-all after:duration-100 hover:after:w-full text-blue-500"
-              >
-                terms and conditions
-              </a>
-              .
-            </label>
+            <div className="flex items-center">
+              <input
+                {...register("terms", { required: type === "signup" })}
+                id="link-checkbox"
+                type="checkbox"
+                className="w-4 h-4 text-customPurple bg-transparent border-gray-300 rounded focus:ring-customPurple transition duration-200 ease-in-out"
+              />
+              <label className="ms-2 text-sm font-medium dark:text-gray-300">
+                I agree with the{" "}
+                <a
+                  href="#"
+                  className="relative font-medium after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-blue-500 after:transition-all after:duration-100 hover:after:w-full text-blue-500"
+                >
+                  terms and conditions
+                </a>
+                .
+              </label>
+            </div>
+
+            {/* Display error message below the checkbox */}
+            {errors["terms"] && (
+              <p className="text-red-500 text-sm mt-1">
+                You must agree to the terms and conditions.
+              </p>
+            )}
           </div>
 
           {/* Submit Button */}
@@ -127,7 +183,7 @@ export const SignupForm = ({ type }: FormAreaProps) => {
               {type === "signup" ? "Create an Account" : "Sign In"}
             </button>
           </div>
-          <div className="sm:hidden flex flex-col  justify-center items-center text-sm text-white">
+          <div className="sm:hidden flex flex-col justify-center items-center text-sm text-white">
             <p className="text-center sm:text-center">
               {type === "signup"
                 ? "Already have an account? "

@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
+    "@krishnakukreja85/sia-common": "^1.0.0",
     "@types/locomotive-scroll": "^4.1.4",
     "locomotive-scroll": "^4.1.4",
     "motion": "^11.14.3",
