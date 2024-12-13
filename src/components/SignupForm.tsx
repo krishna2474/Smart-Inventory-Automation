@@ -1,18 +1,32 @@
 import { Link } from "react-router-dom";
-
+import { useForm } from "react-hook-form";
 type FormAreaProps = {
   type: "signup" | "signin";
 };
-
+type formData = {
+  name: string;
+  email: string;
+  password: string;
+};
 export const SignupForm = ({ type }: FormAreaProps) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<formData>();
+  const onSubmit = handleSubmit((data) => console.log(data));
   return (
     <div
-      className={`relative flex flex-col items-center justify-center font-nunito ${
+      className={`relative bottom-5 flex flex-col items-center justify-center font-nunito ${
         type === "signin" ? "md:mt-10" : "" // Add top margin for signin
       }`}
     >
       <div className="w-full max-w-md rounded-lg">
-        <form className="space-y-2 md:space-y-4 font-semibold">
+        <form
+          className="space-y-2 md:space-y-4 font-semibold"
+          onSubmit={onSubmit}
+        >
           <div className="relative bottom-3 sm:hidden flex items-center my-4">
             <hr className="flex-grow border-t border-white" />
             <span className="mx-4 text-white">or</span>
@@ -25,7 +39,7 @@ export const SignupForm = ({ type }: FormAreaProps) => {
                 : "Don't have an account? "}
               <Link
                 to={type === "signup" ? "/signin" : "/signup"}
-                className="relative font-semibold text-white after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-100 hover:after:w-full"
+                className=" relative font-semibold text-white after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-100 hover:after:w-full"
               >
                 {type === "signup" ? "Login here" : "Create one here"}
               </Link>
@@ -35,10 +49,11 @@ export const SignupForm = ({ type }: FormAreaProps) => {
           {/* Full Name Input (Only for Signup) */}
           <div>
             <input
+              {...(register("name"), { required: type === "signup", min: 3 })}
               type="text"
               name="name"
               id="name"
-              className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-customPurple focus:border-customPurple block w-full p-2.5 ${
+              className={`border-6 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
                 type === "signin" ? "hidden" : ""
               }`}
               placeholder="Full Name"
@@ -48,10 +63,11 @@ export const SignupForm = ({ type }: FormAreaProps) => {
           {/* Email Input */}
           <div>
             <input
+              {...(register("email"), { required: true })}
               type="email"
               name="email"
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customPurple focus:border-customPurple block w-full p-2.5"
+              className="text-gray-900 text-sm rounded-lg block w-full p-2.5"
               placeholder="Email"
             />
           </div>
@@ -59,11 +75,12 @@ export const SignupForm = ({ type }: FormAreaProps) => {
           {/* Password Input */}
           <div>
             <input
+              {...(register("password"), { required: true })}
               type="password"
               name="password"
               id="password"
               placeholder="••••••••"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customPurple focus:border-customPurple block w-full p-2.5"
+              className="text-gray-900 text-sm rounded-lg block w-full p-2.5"
             />
           </div>
 
@@ -74,7 +91,7 @@ export const SignupForm = ({ type }: FormAreaProps) => {
               name="confirm-password"
               id="confirm-password"
               placeholder="••••••••"
-              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customPurple focus:border-customPurple block w-full p-2.5 ${
+              className={`text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
                 type === "signin" ? "hidden" : ""
               }`}
             />
@@ -87,7 +104,7 @@ export const SignupForm = ({ type }: FormAreaProps) => {
             <input
               id="link-checkbox"
               type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-transparent border-gray-300 rounded focus:ring-blue-500 transition duration-200 ease-in-out"
+              className="w-4 h-4 text-customPurple bg-transparent border-gray-300 rounded focus:ring-customPurple transition duration-200 ease-in-out"
             />
             <label className="ms-2 text-sm font-medium dark:text-gray-300">
               I agree with the{" "}

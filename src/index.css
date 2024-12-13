@@ -7,3 +7,15 @@ body {
   padding: 0;
   height: 100%;
 }
+
+input {
+  border: 2px solid #f9fafb; /* Default border width */
+  transition: border-color 0.3s ease; /* Smooth transition for color change */
+}
+
+input:focus {
+  border-width: 4px;
+  border-color: #8e44ad; /* Desired color on focus */
+  outline: none; /* Prevent default outline */
+  transition: all 0.2s ease-in;
+}
