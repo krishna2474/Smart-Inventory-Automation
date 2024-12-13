@@ -13,7 +13,12 @@ export const SignupForm = ({ type }: FormAreaProps) => {
     >
       <div className="w-full max-w-md rounded-lg">
         <form className="space-y-2 md:space-y-4 font-semibold">
-          <div className="flex flex-col sm:flex-row justify-center items-center sm:items-start text-sm text-white">
+          <div className="relative bottom-3 sm:hidden flex items-center my-4">
+            <hr className="flex-grow border-t border-white" />
+            <span className="mx-4 text-white">or</span>
+            <hr className="flex-grow border-t border-white" />
+          </div>
+          <div className="hidden sm:flex sm:flex-col  sm:justify-center sm:items-center  sm:text-sm sm:text-white">
             <p className="text-center sm:text-center">
               {type === "signup"
                 ? "Already have an account? "
@@ -33,7 +38,7 @@ export const SignupForm = ({ type }: FormAreaProps) => {
               type="text"
               name="name"
               id="name"
-              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-customPurple focus:border-customPurple block w-full p-2.5 ${
+              className={`bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-customPurple focus:border-customPurple block w-full p-2.5 ${
                 type === "signin" ? "hidden" : ""
               }`}
               placeholder="Full Name"
@@ -104,6 +109,19 @@ export const SignupForm = ({ type }: FormAreaProps) => {
             >
               {type === "signup" ? "Create an Account" : "Sign In"}
             </button>
+          </div>
+          <div className="sm:hidden flex flex-col  justify-center items-center text-sm text-white">
+            <p className="text-center sm:text-center">
+              {type === "signup"
+                ? "Already have an account? "
+                : "Don't have an account? "}
+              <Link
+                to={type === "signup" ? "/signin" : "/signup"}
+                className="relative font-semibold text-white after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-100 hover:after:w-full"
+              >
+                {type === "signup" ? "Login here" : "Create one here"}
+              </Link>
+            </p>
           </div>
         </form>
       </div>

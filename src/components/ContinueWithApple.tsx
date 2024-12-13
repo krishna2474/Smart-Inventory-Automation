@@ -1,9 +1,13 @@
 type ContinueWithAppleProps = {
   onClick: () => void;
 };
+
 export const ContinueWithApple = ({ onClick }: ContinueWithAppleProps) => {
   return (
-    <button className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 w-full">
+    <button
+      className="flex items-center bg-white border border-gray-300 rounded-lg shadow-md px-6 py-2 text-sm font-medium text-gray-800 dark:text-white hover:bg-gray-200 w-full"
+      onClick={onClick}
+    >
       <svg
         className="h-6 w-6 mr-2"
         xmlns="http://www.w3.org/2000/svg"
@@ -32,8 +36,7 @@ export const ContinueWithApple = ({ onClick }: ContinueWithAppleProps) => {
           </g>
         </g>
       </svg>
-
-      <span>Continue with Apple</span>
+      <span className="text-black whitespace-nowrap">Continue with Apple</span>
     </button>
   );
 };

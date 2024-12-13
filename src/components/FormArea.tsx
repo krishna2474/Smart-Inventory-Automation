@@ -1,5 +1,5 @@
 import { ContinueWithGoogle } from "./ContinueWithGoogle";
-import { ContinueWithApple } from "./AppleSignup";
+import { ContinueWithApple } from "./ContinueWithApple";
 import { SignupForm } from "./SignupForm";
 import { useRecoilValue } from "recoil";
 import { menuState } from "../atoms/menuAtom";
