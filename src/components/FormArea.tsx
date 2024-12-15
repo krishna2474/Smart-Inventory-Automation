@@ -23,11 +23,11 @@ export const FormArea = ({ type }: FormAreaProps) => {
         transition: { duration: 1, type: "spring", stiffness: 30 }, // Smooth spring animation
       }}
       className={`relative  flex justify-center items-center min-h-screen font-nunito ${
-        isMenuOpen ? "sm : mt-96 mt-80" : ""
+        isMenuOpen ? "mt-96" : ""
       }`}
     >
       <div
-        className={`mb-10 mr-10 ml-10 rounded-2xl h-auto ${
+        className={`mb-10 mr-10 ml-10 rounded-3xl h-auto ${
           type === "signin" ? "sm:h-[480px]" : "sm:h-full"
         } w-full sm:w-[850px] bg-white/10 backdrop-blur-3xl border border-white/50 `}
       >
