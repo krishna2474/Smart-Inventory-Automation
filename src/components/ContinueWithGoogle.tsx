@@ -7,6 +7,7 @@ export const ContinueWithGoogle = () => {
     try {
       await loginWithRedirect({
         authorizationParams: {
+          connection: "google-oauth2",
           redirect_uri:
             process.env.NODE_ENV === "production"
               ? "https://smart-inventory-automation.vercel.app/dashboard"
