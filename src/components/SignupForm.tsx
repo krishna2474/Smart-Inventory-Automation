@@ -58,14 +58,17 @@ export const SignupForm = ({ type }: FormAreaProps) => {
               type="text"
               name="name"
               id="name"
-              className={`border-6 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
+              className={`${
+                errors["name"] ? "border-red-600" : "border-customPurple"
+              }text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
                 type === "signin" ? "hidden" : ""
               }`}
+              style={{ width: "100%" }}
               placeholder="Full Name"
             />
             {errors["name"] && (
               <p className="text-red-500 text-sm truncate">
-                Full name is required and must be at least 3 characters long.
+                Full name is required.
               </p>
             )}
           </div>
