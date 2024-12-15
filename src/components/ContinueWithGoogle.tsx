@@ -7,7 +7,10 @@ export const ContinueWithGoogle = () => {
     try {
       await loginWithRedirect({
         authorizationParams: {
-          connection: "google-oauth2", // Ensures Google login
+          redirect_uri:
+            process.env.NODE_ENV === "production"
+              ? "https://smart-inventory-automation.vercel.app/dashboard"
+              : "http://localhost:5173/dashboard",
         },
       });
     } catch (err) {
@@ -15,7 +18,6 @@ export const ContinueWithGoogle = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
