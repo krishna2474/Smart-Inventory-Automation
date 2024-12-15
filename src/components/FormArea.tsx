@@ -22,8 +22,8 @@ export const FormArea = ({ type }: FormAreaProps) => {
         y: 0,
         transition: { duration: 1, type: "spring", stiffness: 30 }, // Smooth spring animation
       }}
-      className={`relative  flex justify-center items-center min-h-screen font-nunito ${
-        isMenuOpen ? "mt-96" : ""
+      className={`relative  flex justify-center items-center top-0 min-h-screen font-nunito ${
+        isMenuOpen ? "mt-72" : "mt-[-60px]"
       }`}
     >
       <div

@@ -11,7 +11,7 @@ export const NavBar = ({ type }: NavBarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useRecoilState(menuState);
   return (
     <>
-      <header className="flex justify-between items-center pt-4 text-white px-6 md:px-20">
+      <header className="flex justify-between items-center pt-4 text-white px-6 md:px-20 mb-0">
         <Link to={"/"}>
           <img
             src={"/assets/SIA-Dark.png"}
