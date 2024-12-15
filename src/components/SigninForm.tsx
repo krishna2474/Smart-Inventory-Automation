@@ -4,6 +4,7 @@ import { BACKEND_URL } from "../config";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
 import { authAtom } from "../atoms/authAtom";
+import { useState } from "react";
 type FormAreaProps = {
   type: "signup" | "signin";
 };
@@ -16,6 +17,7 @@ export const SigninForm = ({ type }: FormAreaProps) => {
     formState: { errors },
   } = useForm();
   const setAuthAtom = useSetRecoilState(authAtom);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const onSubmit = handleSubmit(async (data) => {
     try {
       const response = await axios.post(
@@ -101,29 +103,51 @@ export const SigninForm = ({ type }: FormAreaProps) => {
 
           {/* Password Input */}
           <div>
-            <input
-              {...register("password", {
-                required: true,
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters long",
-                },
-              })}
-              type="password"
-              name="password"
-              id="password"
-              placeholder="••••••••"
-              className={`${
-                errors["password"]
-                  ? "focus:border-red-600 focus:ring-red-600"
-                  : ""
-              } text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-customPurple focus:border-purple-500`}
-            />
-            {errors["password"] && (
-              <p className="text-red-500 text-sm">
-                {errors["password"]?.message + "" || "Password is required."}
-              </p>
-            )}
+            <div className="relative">
+              <input
+                autoComplete="off"
+                {...register("password", {
+                  required: true,
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters long",
+                  },
+                })}
+                type={passwordVisible ? "text" : "password"} // Toggle between text and password
+                name="password"
+                id="password"
+                placeholder="••••••••"
+                className={`${
+                  errors["password"]
+                    ? "focus:border-red-600 focus:ring-red-600"
+                    : ""
+                } text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-customPurple focus:border-purple-500`}
+              />
+              {/* Eye icon */}
+              <span
+                onClick={() => setPasswordVisible(!passwordVisible)} // Toggle password visibility
+                className="absolute right-3 top-3 cursor-pointer"
+              >
+                {passwordVisible ? (
+                  <img
+                    src={"/assets/eyeSlash.svg"}
+                    alt="Hide password"
+                    className="h-5 w-5"
+                  />
+                ) : (
+                  <img
+                    src={"/assets/eye.svg"}
+                    alt="Show password"
+                    className="h-5 w-5"
+                  />
+                )}
+              </span>
+              {errors["password"] && (
+                <p className="text-red-500 text-sm">
+                  {errors["password"]?.message + "" || "Password is required."}
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Submit Button */}
