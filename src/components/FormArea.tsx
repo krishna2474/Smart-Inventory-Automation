@@ -1,5 +1,5 @@
 import { ContinueWithGoogle } from "./ContinueWithGoogle";
-import { ContinueWithApple } from "./ContinueWithApple";
+import { ContinueWithFacebook } from "./ContinueWithApple";
 import { SignupForm } from "./SignupForm";
 import { useRecoilValue } from "recoil";
 import { menuState } from "../atoms/menuAtom";
@@ -46,11 +46,10 @@ export const FormArea = ({ type }: FormAreaProps) => {
                 alt="Logo"
               />
             </div>
-            <div>
+            <div className="space-y-5 flex flex-col">
               <ContinueWithGoogle />
-            </div>
-            <div className="mt-5">
-              <ContinueWithApple onClick={() => {}} />
+
+              <ContinueWithFacebook />
             </div>
           </div>
           <div className="flex justify-center">
