@@ -4,6 +4,7 @@ import { SignupForm } from "./SignupForm";
 import { useRecoilValue } from "recoil";
 import { menuState } from "../atoms/menuAtom";
 import { motion } from "motion/react";
+import { SigninForm } from "./SigninForm";
 
 type FormAreaProps = {
   type: "signup" | "signin";
@@ -52,9 +53,12 @@ export const FormArea = ({ type }: FormAreaProps) => {
               <ContinueWithApple onClick={() => {}} />
             </div>
           </div>
-
           <div className="flex justify-center">
-            <SignupForm type={type} />
+            {type === "signup" ? (
+              <SignupForm type={type} />
+            ) : (
+              <SigninForm type={type} />
+            )}
           </div>
         </div>
       </div>
