@@ -11,6 +11,10 @@
     {
       "src": "/signin",
       "dest": "/"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/"
     }
   ]
 }
