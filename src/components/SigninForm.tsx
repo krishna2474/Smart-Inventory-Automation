@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
+import { useSetRecoilState } from "recoil";
+import { authAtom } from "../atoms/authAtom";
 type FormAreaProps = {
   type: "signup" | "signin";
 };
@@ -13,7 +15,7 @@ export const SigninForm = ({ type }: FormAreaProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const setAuthAtom = useSetRecoilState(authAtom);
   const onSubmit = handleSubmit(async (data) => {
     try {
       const response = await axios.post(
@@ -24,8 +26,10 @@ export const SigninForm = ({ type }: FormAreaProps) => {
 
       console.log(jwt); // Log the token for debugging
       localStorage.setItem("token", "Bearer " + jwt); // Fix: Add space after "Bearer"
+      setAuthAtom(true);
 
       alert("Authentication successful!");
+
       nav("/dashboard");
     } catch (error: any) {
       if (error.response) {
