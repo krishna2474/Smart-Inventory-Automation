@@ -41,7 +41,7 @@ export const SignupForm = ({ type }: FormAreaProps) => {
                 : "Don't have an account? "}
               <Link
                 to={type === "signup" ? "/signin" : "/signup"}
-                className=" relative font-semibold text-white after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-100 hover:after:w-full"
+                className="relative font-semibold text-white after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-100 hover:after:w-full"
               >
                 {type === "signup" ? "Login here" : "Create one here"}
               </Link>
@@ -59,10 +59,8 @@ export const SignupForm = ({ type }: FormAreaProps) => {
               name="name"
               id="name"
               className={`${
-                errors["name"] ? "border-red-600" : "border-customPurple"
-              }text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
-                type === "signin" ? "hidden" : ""
-              }`}
+                errors["name"] ? "focus:border-red-600 focus:ring-red-600" : ""
+              } text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-customPurple focus:border-purple-500`}
               style={{ width: "100%" }}
               placeholder="Full Name"
             />
@@ -86,11 +84,11 @@ export const SignupForm = ({ type }: FormAreaProps) => {
               type="text"
               name="email"
               id="email"
-              className="text-gray-900 text-sm rounded-lg block w-full p-2.5"
+              className={`${
+                errors.email ? "focus:border-red-600 focus:ring-red-600" : ""
+              } text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-customPurple focus:border-purple-500`}
               placeholder="Email"
             />
-
-            {/* Display error message */}
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.email?.message + ""}
@@ -112,7 +110,11 @@ export const SignupForm = ({ type }: FormAreaProps) => {
               name="password"
               id="password"
               placeholder="••••••••"
-              className="text-gray-900 text-sm rounded-lg block w-full p-2.5"
+              className={`${
+                errors["password"]
+                  ? "focus:border-red-600 focus:ring-red-600"
+                  : ""
+              } text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-customPurple focus:border-purple-500`}
             />
             {errors["password"] && (
               <p className="text-red-500 text-sm">
@@ -133,7 +135,11 @@ export const SignupForm = ({ type }: FormAreaProps) => {
               name="confirm-password"
               id="confirm-password"
               placeholder="••••••••"
-              className={`text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
+              className={`${
+                errors["confirm-password"]
+                  ? "focus:border-red-600 focus:ring-red-600"
+                  : ""
+              } text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-customPurple focus:border-purple-500 ${
                 type === "signin" ? "hidden" : ""
               }`}
             />

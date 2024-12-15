@@ -8,5 +8,8 @@
 
 input {
   border: 2px solid #f9fafb; /* Default border width */
-  transition: border-color 0.3s ease; /* Smooth transition for color change */
+  transition: border-color 0.2s ease; /* Smooth transition for color change */
+}
+input:focus {
+  outline: none; /* Remove default focus outline */
 }
