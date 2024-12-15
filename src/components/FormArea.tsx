@@ -27,7 +27,7 @@ export const FormArea = ({ type }: FormAreaProps) => {
       }`}
     >
       <div
-        className={`mb-10 mr-10 ml-10 rounded-3xl h-auto ${
+        className={`mr-10 ml-10 rounded-3xl h-auto ${
           type === "signin" ? "sm:h-[480px]" : "sm:h-full"
         } w-full sm:w-[850px] bg-white/10 backdrop-blur-3xl border border-white/50 `}
       >

@@ -12,22 +12,3 @@ input {
   border: 2px solid #f9fafb; /* Default border width */
   transition: border-color 0.3s ease; /* Smooth transition for color change */
 }
-/* Set consistent input width */
-.input-box {
-  width: 100%; /* Or a fixed width like 300px */
-  box-sizing: border-box; /* Prevent padding from affecting width */
-}
-
-/* Prevent the error message from shifting input boxes */
-.error-message {
-  color: red;
-  font-size: 14px;
-  position: absolute; /* Keeps it off the flow */
-  margin-top: 15px; /* Space between input and error */
-}
-
-/* Add a container with relative positioning */
-.input-container {
-  position: relative; /* So error message can position absolutely */
-  width: 300px; /* Fixed width for input and error space */
-}
