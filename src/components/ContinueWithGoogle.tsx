@@ -1,9 +1,6 @@
-import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-type ContinueWithGoogleProps = {
-  onClick: () => void;
-};
-export const ContinueWithGoogle = ({ onClick }: ContinueWithGoogleProps) => {
+
+export const ContinueWithGoogle = () => {
   const { loginWithRedirect, isLoading, error } = useAuth0();
 
   const handleGoogleLogin = async () => {
