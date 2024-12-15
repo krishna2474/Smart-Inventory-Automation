@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@hookform/resolvers": "^3.9.1",
     "@krishnakukreja85/sia-common": "^1.0.0",
     "@types/locomotive-scroll": "^4.1.4",

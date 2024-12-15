@@ -5,12 +5,14 @@ import { useRecoilValue } from "recoil";
 import { menuState } from "../atoms/menuAtom";
 import { motion } from "motion/react";
 import { SigninForm } from "./SigninForm";
+import { useAuth0 } from "@auth0/auth0-react";
 
 type FormAreaProps = {
   type: "signup" | "signin";
 };
 
 export const FormArea = ({ type }: FormAreaProps) => {
+  const { loginWithPopup } = useAuth0();
   const isMenuOpen = useRecoilValue(menuState);
   return (
     <motion.div
