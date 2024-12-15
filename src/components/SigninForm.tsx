@@ -12,11 +12,7 @@ export const SigninForm = ({ type }: FormAreaProps) => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm();
-
-  // Watch the password field to compare it with the confirm password
-  const password = watch("password");
 
   const onSubmit = handleSubmit(async (data) => {
     try {
