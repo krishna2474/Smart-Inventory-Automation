@@ -9,7 +9,6 @@ import { SigninForm } from "./SigninForm";
 type FormAreaProps = {
   type: "signup" | "signin";
 };
-
 export const FormArea = ({ type }: FormAreaProps) => {
   const isMenuOpen = useRecoilValue(menuState);
 
@@ -24,22 +23,24 @@ export const FormArea = ({ type }: FormAreaProps) => {
         y: 0,
         transition: { duration: 1, type: "spring", stiffness: 30 },
       }}
-      className={`relative flex justify-center items-center min-h-[calc(100vh-64px)] sm:min-h-screen ${
+      className={`relative flex justify-center items-center min-h-[calc(100vh-64px)] ${
         isMenuOpen ? "mt-16 sm:mt-0" : "mt-0"
       } font-nunito`}
     >
-      <div className="rounded-3xl w-[90%] sm:w-[850px] bg-white/10 backdrop-blur-3xl border border-white/50">
-        <div className="flex justify-center pt-10 font-bebas text-5xl sm:text-6xl text-white">
+      <div className="w-[90%] max-w-[400px] sm:max-w-[850px] bg-white/10 backdrop-blur-3xl border border-white/50 rounded-3xl">
+        {/* Header */}
+        <div className="flex justify-center pt-8 font-bebas text-3xl sm:text-6xl text-white">
           {type === "signup" ? "Signup" : "Login"}
         </div>
+
+        {/* Content Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 sm:p-8">
+          {/* Left Column */}
           <div className="flex flex-col items-center">
             <div className="hidden sm:block">
               <img
-                className="relative bottom-8"
-                src={"/assets/Smart Inventory Automation-Dark.png"}
-                width={320}
-                height={110}
+                className="relative bottom-4 max-w-full h-auto"
+                src="/assets/Smart Inventory Automation-Dark.png"
                 alt="Logo"
               />
             </div>
@@ -48,6 +49,8 @@ export const FormArea = ({ type }: FormAreaProps) => {
               <ContinueWithFacebook />
             </div>
           </div>
+
+          {/* Right Column */}
           <div className="flex justify-center">
             {type === "signup" ? (
               <SignupForm type={type} />
