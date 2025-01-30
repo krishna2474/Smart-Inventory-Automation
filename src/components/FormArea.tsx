@@ -36,7 +36,7 @@ export const FormArea = ({ type }: FormAreaProps) => {
           {type === "signup" ? "Signup" : "Login"}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 p-5 sm:p-10">
-          <div className="flex flex-col ">
+          <div className="flex flex-col items-center">
             <div className="hidden sm:block">
               <img
                 className="relative bottom-8"
