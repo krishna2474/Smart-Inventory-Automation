@@ -1,8 +1,6 @@
 import { ContinueWithGoogle } from "./ContinueWithGoogle";
 import { ContinueWithFacebook } from "./ContinueWithApple";
 import { SignupForm } from "./SignupForm";
-import { useRecoilValue } from "recoil";
-import { menuState } from "../atoms/menuAtom";
 import { motion } from "motion/react";
 import { SigninForm } from "./SigninForm";
 
@@ -10,8 +8,6 @@ type FormAreaProps = {
   type: "signup" | "signin";
 };
 export const FormArea = ({ type }: FormAreaProps) => {
-  const isMenuOpen = useRecoilValue(menuState);
-
   return (
     <motion.div
       initial={{
@@ -23,9 +19,9 @@ export const FormArea = ({ type }: FormAreaProps) => {
         y: 0,
         transition: { duration: 1, type: "spring", stiffness: 30 },
       }}
-      className={`relative flex justify-center items-center min-h-[calc(100vh-64px)] ${
-        isMenuOpen ? "mt-16 sm:mt-0" : "mt-0"
-      } font-nunito`}
+      className={`relative ${
+        type === "signin" ? "bottom-5" : "top-5"
+      } flex justify-center items-center min-h-[calc(100vh-64px)] font-nunito`}
     >
       <div className="w-[90%] max-w-[400px] sm:max-w-[850px] bg-white/10 backdrop-blur-3xl border border-white/50 rounded-3xl">
         {/* Header */}
