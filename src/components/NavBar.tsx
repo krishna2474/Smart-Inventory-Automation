@@ -1,23 +1,27 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { AuthForm } from "./AuthForm";
 import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
-type NavBarProps = {
-  type: "signup" | "signin" | "landing";
-};
-
-export const NavBar = ({ type }: NavBarProps) => {
-  const nav = useNavigate();
+export const NavBar = () => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
+  const openModal = (signup = false) => {
+    setIsSignup(signup);
+    setModalOpen(true);
+  };
+  const closeModal = () => setModalOpen(false);
 
   return (
-    <header className="relative flex items-center justify-between h-20 text-white px-6 md:px-20 leading-[1]">
-      {/* Logo */}
-      <div>
+    <>
+      {/* Navbar */}
+      <header className="relative flex items-center justify-between h-20 text-white px-6 md:px-20">
+        {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
             src="/assets/SIA-Dark.png"
@@ -26,92 +30,97 @@ export const NavBar = ({ type }: NavBarProps) => {
             className="hover:scale-105 transition-all"
           />
         </Link>
-      </div>
 
-      {/* Mobile Menu Button */}
-      <button
-        className="xl:hidden text-white text-4xl absolute right-6 top-6 z-50"
-        onClick={toggleMenu}
-      >
-        {menuOpen ? (
-          <X height={50} width={35} />
-        ) : (
-          <Menu height={50} width={35} />
-        )}
-      </button>
+        {/* Mobile Menu Button */}
+        <button
+          className="xl:hidden text-white text-4xl absolute right-6 top-6 z-50"
+          onClick={toggleMenu}
+        >
+          {menuOpen ? <X size={35} /> : <Menu size={35} />}
+        </button>
 
-      {/* Desktop Navigation */}
-      <div className="hidden xl:flex items-center gap-6 px-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl transition-all hover:shadow-white hover:shadow-sm xl:max-w-fit mx-auto">
-        {["Home", "About", "Help", "Contact"].map((item, idx) => {
-          const path = item === "Home" ? "/" : `/${item.toLowerCase()}`;
-          const isActive = location.pathname === path;
-
-          return (
-            <Link
-              key={idx}
-              to={path}
-              className={`px-6 py-3 text-lg font-semibold rounded-md transition duration-200 ease-in-out ${
-                isActive ? "text-white" : "text-white/50"
-              } hover:text-white`}
-            >
-              {item}
-            </Link>
-          );
-        })}
-      </div>
-
-      {/* Mobile Navigation Menu */}
-      <div
-        className={`fixed top-0 right-0 h-full w-64 bg-black/90 backdrop-blur-lg p-6 transform transition-transform duration-300 ease-in-out z-40 ${
-          menuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <nav className="flex flex-col items-start mt-10 gap-6">
+        {/* Desktop Menu */}
+        <nav className="hidden xl:flex items-center gap-6 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl transition-all hover:shadow-white hover:shadow-sm">
           {["Home", "About", "Help", "Contact"].map((item, idx) => {
             const path = item === "Home" ? "/" : `/${item.toLowerCase()}`;
             return (
               <Link
                 key={idx}
                 to={path}
-                className="text-white text-xl font-semibold hover:text-gray-300"
-                onClick={closeMenu}
+                className={`px-6 py-2 text-lg font-semibold rounded-md transition duration-200 ${
+                  location.pathname === path
+                    ? "text-white"
+                    : "text-white/50 hover:text-white"
+                }`}
               >
                 {item}
               </Link>
             );
           })}
         </nav>
-      </div>
 
-      {/* Login / Signup Buttons */}
-      <div className="hidden xl:flex items-center justify-center gap-2">
-        {type === "landing" ? (
-          <>
-            <button
-              type="button"
-              className="relative text-black bg-white font-medium rounded-lg text-sm px-6 py-3 overflow-hidden group"
-              onClick={() => nav("/signin")}
-            >
-              Login
-            </button>
-            <button
-              type="button"
-              className="relative text-black bg-white font-medium rounded-lg text-sm px-6 py-3 overflow-hidden group"
-              onClick={() => nav("/signup")}
-            >
-              Signup
-            </button>
-          </>
-        ) : (
+        {/* Auth Buttons (Desktop) */}
+        <div className="hidden xl:flex items-center gap-3">
           <button
-            type="button"
-            className="relative text-black bg-white font-medium rounded-lg text-sm px-6 py-3 overflow-hidden group"
-            onClick={() => nav(type === "signin" ? "/signup" : "/signin")}
+            className="px-6 py-3 text-black bg-white rounded-lg hover:bg-gray-200 transition"
+            onClick={() => openModal(false)}
           >
-            {type === "signup" ? "Login" : "Signup"}
+            Login
           </button>
-        )}
-      </div>
-    </header>
+          <button
+            className="px-6 py-3 text-black bg-white rounded-lg hover:bg-gray-200 transition"
+            onClick={() => openModal(true)}
+          >
+            Signup
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <nav className="xl:hidden fixed inset-0 bg-black/90 flex flex-col items-center justify-center space-y-6 text-white text-2xl z-50">
+          {["Home", "About", "Help", "Contact"].map((item, idx) => {
+            const path = item === "Home" ? "/" : `/${item.toLowerCase()}`;
+            return (
+              <Link
+                key={idx}
+                to={path}
+                onClick={closeMenu}
+                className="hover:text-purple-400"
+              >
+                {item}
+              </Link>
+            );
+          })}
+          <button
+            className="mt-4 px-6 py-3 text-black bg-white rounded-lg hover:bg-gray-200 transition"
+            onClick={() => {
+              closeMenu();
+              openModal(false);
+            }}
+          >
+            Login
+          </button>
+          <button
+            className="px-6 py-3 text-white bg-purple-600 rounded-lg hover:bg-purple-500 transition"
+            onClick={() => {
+              closeMenu();
+              openModal(true);
+            }}
+          >
+            Signup
+          </button>
+        </nav>
+      )}
+
+      {/* Auth Modal */}
+      {modalOpen && (
+        <AuthForm
+          isSignup={isSignup}
+          closeModal={closeModal}
+          toggleMode={() => setIsSignup(!isSignup)}
+        />
+      )}
+    </>
   );
 };
