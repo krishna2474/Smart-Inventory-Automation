@@ -14,7 +14,7 @@ export const Landing = () => {
         <NavBar />
 
         {/* Hero Section */}
-        <div className="relative bottom-10 flex flex-col items-center justify-center text-center min-h-screen px-6">
+        <div className="relative bottom-20 flex flex-col items-center justify-center text-center min-h-screen px-6">
           <h1 className="text-3xl md:text-5xl text-white uppercase font-bebas tracking-tight">
             Seamless Inventory Management
           </h1>
