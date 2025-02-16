@@ -44,7 +44,7 @@ export const NavBar = () => {
         </button>
 
         {/* Desktop Menu */}
-        <nav className="hidden xl:flex items-center gap-4 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl transition-all hover:shadow-white hover:shadow-sm">
+        <nav className="hidden relative left-9 xl:flex items-center gap-4 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl transition-all hover:shadow-white hover:shadow-sm">
           {["Home", "About", "Help", "Contact"].map((item, idx) => {
             const path = item === "Home" ? "/" : `/${item.toLowerCase()}`;
             return (
