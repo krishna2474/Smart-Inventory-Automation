@@ -14,11 +14,11 @@ export const Landing = () => {
         <NavBar />
 
         {/* Hero Section */}
-        <div className="flex flex-col items-center justify-center text-center min-h-screen px-6">
-          <h1 className="text-4xl md:text-5xl text-white uppercase font-bebas tracking-tight">
+        <div className="relative bottom-10 flex flex-col items-center justify-center text-center min-h-screen px-6">
+          <h1 className="text-3xl md:text-5xl text-white uppercase font-bebas tracking-tight">
             Seamless Inventory Management
           </h1>
-          <h2 className="text-4xl md:text-5xl text-white font-bebas tracking-tight">
+          <h2 className="text-3xl md:text-5xl text-white font-bebas tracking-tight">
             Powered by Intelligent Automation
           </h2>
           <p className="text-[#E5E5E5] mt-4 max-w-2xl font-nunito">
