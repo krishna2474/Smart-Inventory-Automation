@@ -24,7 +24,7 @@ export const NavBar = () => {
   return (
     <>
       {/* Navbar */}
-      <header className="relative top-3 flex items-center justify-between h-14 text-white px-4 md:px-12">
+      <header className="relative top-3 flex items-center justify-between h-14 text-white px-4 md:px-12 z-50">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
