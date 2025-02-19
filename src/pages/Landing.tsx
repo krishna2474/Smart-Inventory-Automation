@@ -31,7 +31,7 @@ export const Landing = () => {
       <NavBar />
       <div className="relative z-10">
         {/* Hero Section */}
-        <div className="h-screen flex flex-col justify-center px-6 max-w-4xl xxl:max-w-8xl mx-auto text-center">
+        <div className="h-screen flex flex-col md:justify-center px-6 max-w-4xl xxl:max-w-8xl mx-auto text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
