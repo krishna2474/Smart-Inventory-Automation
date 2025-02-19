@@ -44,14 +44,14 @@ export const NavBar = () => {
         </button>
 
         {/* Desktop Menu */}
-        <nav className="hidden relative left-9 xl:flex items-center gap-4 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl transition-all hover:shadow-white hover:shadow-sm">
+        <nav className="hidden absolute left-0 right-0 mx-auto xl:flex items-center justify-center gap-4 hover:gap-8 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl transition-all duration-150 w-[390px] hover:w-[450px] hover:shadow-white hover:shadow-sm overflow-hidden">
           {["Home", "About", "Help", "Contact"].map((item, idx) => {
             const path = item === "Home" ? "/" : `/${item.toLowerCase()}`;
             return (
               <Link
                 key={idx}
                 to={path}
-                className={`px-4 py-1 text-base font-medium rounded-md transition duration-200 ${
+                className={`px-4 py-1 text-base font-medium rounded-md transition-all duration-300 ${
                   location.pathname === path
                     ? "text-white"
                     : "text-white/50 hover:text-white"
