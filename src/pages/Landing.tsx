@@ -1,3 +1,4 @@
+import { Card } from "../components/Card";
 import { NavBar } from "../components/NavBar";
 import { motion } from "framer-motion";
 
@@ -20,7 +21,7 @@ export const Landing = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-4xl md:text-5xl text-white uppercase font-bebas tracking-tight"
+            className="text-3xl md:text-7xl text-white uppercase font-bebas tracking-tight"
           >
             Seamless Inventory Management
           </motion.h1>
@@ -29,7 +30,7 @@ export const Landing = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            className="text-4xl md:text-5xl text-white font-bebas tracking-tight"
+            className="text-2xl md:text-6xl text-white font-bebas tracking-tight"
           >
             Powered by Intelligent Automation
           </motion.h2>
@@ -41,9 +42,10 @@ export const Landing = () => {
             transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
             className="text-[#E5E5E5] mt-4 font-nunito"
           >
-            Streamline your inventory management with advanced AI technology.
-            Automate data entry, track real-time updates, and optimize
-            operations effortlessly.
+            Streamline your inventory management with advanced AI
+            technology.Automate data entry, track real-time updates, and
+            optimize operations effortlessly.Transform your business with
+            intelligent solutions tailored for efficiency and accuracy.
           </motion.p>
 
           {/* Animated Button */}
@@ -53,10 +55,20 @@ export const Landing = () => {
             transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
             className="mt-6"
           >
-            <button className="px-6 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition">
+            <button className="p-5 bg-purple-600 text-white py-2 rounded-md shadow-lg relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700">
               Start Automating
             </button>
           </motion.div>
+        </div>
+        <div className="text-white font-bebas text-4xl mt-32 flex justify-center">
+          Why to use Smart Inventory Automation?
+        </div>
+        <div>
+          <Card
+            icon={"/assets/realTime.png"}
+            text={"Test Text"}
+            title="Real-Time Inventory Tracking"
+          />
         </div>
       </div>
     </div>
