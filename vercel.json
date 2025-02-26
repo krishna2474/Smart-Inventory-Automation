@@ -1,28 +1,3 @@
 {
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/"
-    },
-    {
-      "src": "/signup",
-      "dest": "/"
-    },
-    {
-      "src": "/signin",
-      "dest": "/"
-    },
-    {
-      "src": "/dashboard",
-      "dest": "/"
-    },
-    {
-      "src": "/forgot-password",
-      "dest": "/"
-    },
-    {
-      "src": "/reset-password/*",
-      "dest": "/"
-    }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
