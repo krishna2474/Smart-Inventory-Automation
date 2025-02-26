@@ -21,7 +21,7 @@
       "dest": "/"
     },
     {
-      "src": "/reset-password",
+      "src": "/reset-password/*",
       "dest": "/"
     }
   ]
