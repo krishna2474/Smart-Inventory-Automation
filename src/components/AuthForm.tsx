@@ -69,7 +69,7 @@ export const AuthForm = ({
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black/70 backdrop-blur-md z-50"
+      className="fixed inset-0 flex items-center justify-center bg-black/70 backdrop-blur-md z-500"
       onClick={closeModal}
     >
       <motion.div

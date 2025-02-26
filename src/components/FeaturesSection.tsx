@@ -23,7 +23,7 @@ export const FeaturesSection = () => {
       id="features"
       initial={{ opacity: 0, y: 50 }}
       animate={controls}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
       className="min-h-screen -mt-20 scroll-mt-0"
     >
       <div className="text-white font-bebas text-3xl md:text-6xl mt-4 flex justify-center">

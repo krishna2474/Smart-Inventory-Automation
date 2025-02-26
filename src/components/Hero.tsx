@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <div className="h-screen flex flex-col mt-10 md:mt-0 md:justify-center px-6 max-w-4xl xxl:max-w-8xl mx-auto text-center">
       <motion.h1
@@ -38,11 +40,14 @@ export const HeroSection = () => {
         transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
         className="mt-6"
       >
-        <a href="#features">
-          <button className="p-5 bg-purple-600 text-white py-2 rounded-md shadow-lg relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700">
-            Start Automating
-          </button>
-        </a>
+        <button
+          className="p-8 bg-purple-600 text-white py-2 rounded-md shadow-lg relative text-lg  font-bold overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
+          Start Automating
+        </button>
       </motion.div>
     </div>
   );

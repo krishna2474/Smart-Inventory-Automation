@@ -1,30 +1,27 @@
-import { Link, useLocation } from "react-router-dom";
-import { AuthForm } from "./AuthForm";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export const NavBar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isSignup, setIsSignup] = useState(false);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
-  const openModal = (signup = false) => {
-    setIsSignup(signup);
-    setModalOpen(true);
+
+  const handleAuthNavigation = (path: any) => {
+    navigate(path, { state: { backgroundLocation: location } });
   };
-  const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
     setMenuOpen(false);
-  }, []);
+  }, [location]);
 
   return (
     <>
       {/* Navbar */}
-      <header className="relative top-3 flex items-center justify-between h-14 text-white px-4 md:px-12 z-50">
+      <header className="relative top-3 flex items-center justify-between h-14 text-white px-4 md:px-12 z-20">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
@@ -67,20 +64,20 @@ export const NavBar = () => {
         <div className="hidden xl:flex items-center gap-3">
           <button
             className="relative py-2 px-5 text-sm bg-[#C98C00] text-white rounded-md shadow-md overflow-hidden before:absolute before:top-0 before:left-[-250%] before:w-[250%] before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:transition-all before:duration-700 hover:before:left-[150%]"
-            onClick={() => openModal(false)}
+            onClick={() => handleAuthNavigation("/login")}
           >
             Login
           </button>
           <button
             className="relative py-2 px-5 text-sm bg-[#C98C00] text-white rounded-md shadow-md overflow-hidden before:absolute before:top-0 before:left-[-250%] before:w-[250%] before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:transition-all before:duration-700 hover:before:left-[150%]"
-            onClick={() => openModal(true)}
+            onClick={() => handleAuthNavigation("/signup")}
           >
             Signup
           </button>
         </div>
       </header>
 
-      {/* Mobile Menu (Hidden by Default) */}
+      {/* Mobile Menu */}
       <nav
         className={`xl:hidden fixed inset-0 bg-black/90 flex flex-col items-center justify-center space-y-5 text-white text-xl z-40 transform transition-transform ${
           menuOpen ? "translate-x-0" : "translate-x-full"
@@ -103,7 +100,7 @@ export const NavBar = () => {
           className="relative py-2 px-5 text-sm bg-[#C98C00] text-white rounded-md shadow-md overflow-hidden before:absolute before:top-0 before:left-[-250%] before:w-[250%] before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:transition-all before:duration-700 hover:before:left-[150%]"
           onClick={() => {
             closeMenu();
-            openModal(false);
+            handleAuthNavigation("/login");
           }}
         >
           Login
@@ -112,21 +109,12 @@ export const NavBar = () => {
           className="relative py-2 px-5 text-sm bg-[#C98C00] text-white rounded-md shadow-md overflow-hidden before:absolute before:top-0 before:left-[-250%] before:w-[250%] before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:transition-all before:duration-700 hover:before:left-[150%]"
           onClick={() => {
             closeMenu();
-            openModal(true);
+            handleAuthNavigation("/signup");
           }}
         >
           Signup
         </button>
       </nav>
-
-      {/* Auth Modal */}
-      {modalOpen && (
-        <AuthForm
-          isSignup={isSignup}
-          closeModal={closeModal}
-          toggleMode={() => setIsSignup(!isSignup)}
-        />
-      )}
     </>
   );
 };
