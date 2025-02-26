@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-
-const BACKEND_URL = "https://your-backend-domain.com"; // Replace with your backend URL
+import { BACKEND_URL } from "../config";
 
 const ResetPassword = () => {
   const { token } = useParams();
