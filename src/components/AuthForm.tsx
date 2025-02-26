@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BACKEND_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 
 export const AuthForm = ({
   isSignup,
@@ -14,6 +15,7 @@ export const AuthForm = ({
   closeModal: () => void;
   toggleMode: () => void;
 }) => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,16 +34,26 @@ export const AuthForm = ({
       setIsSubmitting(true);
       setIsPacked(true);
       const endpoint = isSignup ? "/api/v1/auth/signup" : "/api/v1/auth/signin";
+
       const payload = isSignup
         ? { name, email, password }
         : { email, password };
 
-      const { data } = await axios.post(BACKEND_URL + endpoint, payload);
-      toast.success(data.message || "Success!");
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsPacked(false);
-      }, 3000);
+      const response = await axios.post(BACKEND_URL + endpoint, payload);
+      if (response.status === 200) {
+        toast.success(response.data.message || "Success!");
+        setTimeout(() => {
+          setIsSubmitting(false);
+          setIsPacked(false);
+          navigate("/dashboard");
+        }, 1000);
+      } else {
+        toast.error(response.data.error || "Something went wrong!");
+        setTimeout(() => {
+          setIsSubmitting(false);
+          setIsPacked(false);
+        }, 3000);
+      }
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Something went wrong!");
       setTimeout(() => {
@@ -49,6 +61,10 @@ export const AuthForm = ({
         setIsPacked(false);
       }, 3000);
     }
+  };
+
+  const handleForgotPassword = () => {
+    navigate("/forgot-password");
   };
 
   return (
@@ -132,6 +148,16 @@ export const AuthForm = ({
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
+            {!isSignup && (
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className="text-purple-400 hover:underline text-sm mt-2 focus:outline-none"
+                disabled={isSubmitting}
+              >
+                Forgot Password?
+              </button>
+            )}
           </div>
 
           {isSignup && (
@@ -155,36 +181,12 @@ export const AuthForm = ({
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              initial={{ scale: 1, opacity: 1 }}
-              animate={
-                isPacked
-                  ? {
-                      scale: 0.9,
-                      y: 100,
-                      opacity: 0,
-                      transition: { duration: 1 },
-                    }
-                  : { scale: 1, y: 0, opacity: 1 }
-              }
-              exit={{ opacity: 0, y: 100 }}
-              className={`w-full bg-purple-600 text-white py-2 rounded-md shadow-lg relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700 transition-all duration-500 ${
+              className={`w-full bg-purple-600 text-white py-2 rounded-md shadow-lg relative overflow-hidden flex justify-center items-center gap-2 ${
                 isSubmitting ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
               {isSubmitting ? (
-                <motion.div
-                  initial={{ scale: 1 }}
-                  animate={{ rotate: [0, 10, -10, 0], scale: [1, 0.8, 1] }}
-                  transition={{
-                    repeat: Infinity,
-                    repeatDelay: 0.3,
-                    duration: 1,
-                    ease: "easeInOut",
-                  }}
-                  className="flex justify-center items-center gap-2"
-                >
-                  📦 📦 📦
-                </motion.div>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : isSignup ? (
                 "Sign Up"
               ) : (

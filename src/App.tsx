@@ -3,6 +3,10 @@ import { Landing } from "./pages/Landing";
 import { About } from "./pages/About";
 import { Login } from "./pages/Login";
 import { Toaster } from "react-hot-toast";
+import DashboardOverview from "./components/Dashboard";
+import FileUpload from "./components/FileUpload";
+import PDFViewer from "./components/PDFViewer";
+import { ForgotPassword } from "./components/ForgotPassword";
 
 function App() {
   return (
@@ -12,6 +16,13 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/about" element={<About />} />
+        <Route path="/upload" element={<FileUpload />} />
+        <Route path="/view" element={<PDFViewer />} />
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword closeModal={() => {}} />}
+        />
+        <Route path="/dashboard" element={<DashboardOverview />} />
       </Routes>
     </>
   );
