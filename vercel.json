@@ -15,6 +15,14 @@
     {
       "src": "/dashboard",
       "dest": "/"
+    },
+    {
+      "src": "/forgot-password",
+      "dest": "/"
+    },
+    {
+      "src": "/reset-password",
+      "dest": "/"
     }
   ]
 }
