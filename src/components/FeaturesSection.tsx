@@ -1,4 +1,3 @@
-import { FeatureCard } from "../components/FeatureCard";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import { Card } from "./Card";
