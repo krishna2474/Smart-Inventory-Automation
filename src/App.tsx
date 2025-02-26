@@ -7,6 +7,7 @@ import DashboardOverview from "./components/Dashboard";
 import FileUpload from "./components/FileUpload";
 import PDFViewer from "./components/PDFViewer";
 import { ForgotPassword } from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           path="/forgot-password"
           element={<ForgotPassword closeModal={() => {}} />}
         />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard" element={<DashboardOverview />} />
       </Routes>
     </>
