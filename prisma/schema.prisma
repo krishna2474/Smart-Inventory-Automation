@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STAFF
+  ADMIN
+}
+
+model User {
+  user_id           String   @default(uuid()) @id
+  firstName        String
+  lastName         String
+  email            String   @unique
+  password         String
+  role             Role     @default(STAFF)
+  otp              Otp[]
+  resetToken       String?  // Nullable reset token field
+  UploadedInvoice UploadedInvoice[]
+  resetTokenExpiry DateTime? // Nullable expiration time
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  deleted          Boolean  @default(false) // Soft delete field
+}
+
+model Otp {
+  id         String   @default(uuid()) @id
+  email      String   @unique
+  otp        String
+  expires_at DateTime
+  created_at DateTime @default(now())
+
+  // Foreign key reference to User model
+  user       User     @relation(fields: [email], references: [email], onDelete: Cascade)
+}
+
+model UploadedInvoice {
+  id             String   @id @default(uuid())
+  fileUrl        String
+  fileName       String
+  extractedData  String?   // JSON or raw text from Gemini
+  uploadedById   String?   // Optional relation to User
+  uploadedBy     User?     @relation(fields: [uploadedById], references: [user_id], onDelete: SetNull)
+  createdAt      DateTime @default(now())
+}
+
+model Supplier {
+  supplier_id String   @default(uuid()) @id
+  name        String
+  contact     String?
+  email       String?  @unique
+  address     String?
+  products    Product[]
+  invoice     Invoice[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  deleted     Boolean  @default(false) // Soft delete field
+}
+
+model Category {
+  category_id String   @default(uuid()) @id
+  name        String   @unique
+  products    Product[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  deleted     Boolean  @default(false) // Soft delete field
+}
+
+model Product {
+  product_id  String    @default(uuid()) @id
+  name        String
+  description String?
+  price       Decimal
+  stock       Int
+  supplier_id String?
+  category_id String?
+  supplier    Supplier? @relation(fields: [supplier_id], references: [supplier_id], onDelete: SetNull)
+  category    Category? @relation(fields: [category_id], references: [category_id], onDelete: SetNull)
+
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted     Boolean   @default(false) // Soft delete field
+}
+
+model Invoice {
+  invoice_id  String    @default(uuid()) @id
+  fileUrl    String
+  fileName   String
+  supplier_id String
+  totalAmount Decimal
+  invoiceDate DateTime
+  status      String   @default("PENDING")
+  supplier    Supplier @relation(fields: [supplier_id], references: [supplier_id], onDelete: Cascade)
+  payments    Payment[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  deleted     Boolean  @default(false) // Soft delete field
+}
+
+model Payment {
+  payment_id  String    @default(uuid()) @id
+  invoice_id  String
+  amount      Decimal
+  status      String   @default("PENDING")
+  invoice     Invoice  @relation(fields: [invoice_id], references: [invoice_id], onDelete: Cascade)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  deleted     Boolean  @default(false) // Soft delete field
+  paymentDate DateTime? // Nullable payment date
+}
+model SalesInvoice {
+  id          Int      @id @default(autoincrement())
+  totalAmount Float
+  createdAt   DateTime @default(now())
+  items       SalesInvoiceItem[]
+}
+
+model SalesInvoiceItem {
+  id         Int      @id @default(autoincrement())
+  productId  String
+  quantity   Int
+  price      Float
+  salesInvoiceId Int
+  salesInvoice SalesInvoice @relation(fields: [salesInvoiceId], references: [id])
+}
