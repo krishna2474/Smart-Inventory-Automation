@@ -11,17 +11,27 @@ type SidebarItemProps = {
   isCollapsed: boolean;
   navigate: (path: string) => void;
 };
-
 const SidebarItem = React.memo(
   ({ icon, label, path, isCollapsed, navigate }: SidebarItemProps) => (
-    <button onClick={() => navigate(path)} className={`block py-2 px-4 rounded-md hover:bg-[#222] w-full text-left ${isCollapsed ? 'justify-center' : 'justify-start'}`}>
-      <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-start'}`}>
+    <button
+      onClick={() => navigate(path)}
+      className={`block py-2 px-4 rounded-md hover:bg-[#222] w-full text-left ${
+        isCollapsed ? "justify-center" : "justify-start"
+      }`}
+    >
+      <div
+        className={`flex items-center ${
+          isCollapsed ? "justify-center" : "justify-start"
+        }`}
+      >
         {icon}
         {!isCollapsed && <span className="ml-2">{label}</span>}
       </div>
     </button>
   )
 );
+
+SidebarItem.displayName = "SidebarItem";
 
 type DashboardSidebarProps = {
   isSidebarOpen: boolean;
@@ -30,7 +40,7 @@ type DashboardSidebarProps = {
   toggleCollapse: () => void;
 };
 
-const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isSidebarOpen, isCollapsed, toggleSidebar, toggleCollapse }) => {
+const DashboardSidebar: React.FC<DashboardSidebarProps> = ({  isCollapsed, toggleSidebar, toggleCollapse }) => {
   const router = useRouter();
 
   const navigate = useCallback(
