@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
 
 // 📌 GET All Categories (Excluding Soft Deleted)
 // 📌 GET All Categories (Excluding Soft Deleted) with Product Count

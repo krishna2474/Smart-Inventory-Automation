@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client"; // Using Prisma for DB interactions
-// Initialize Prisma client
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 // Define the type for payment data
 type PaymentData = {

@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
 
 // 📌 GET All Active Suppliers (Excluding Soft-Deleted Ones)
 export async function GET() {
