@@ -75,7 +75,10 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
           >
             <h2 className="text-2xl font-bold mb-4 text-center">Log In</h2>
 
-            <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={(e) => e.preventDefault()}
+            >
               {/* Email Input */}
               <motion.input
                 initial={{ y: 20, opacity: 0 }}
@@ -90,7 +93,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
                 }
                 required
                 className="w-full mt-2 p-3 bg-gray-400/10 bg-opacity-30 backdrop-blur-md text-white rounded-xl border border-white/20 shadow-inner focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 ease-in-out hover:bg-gray-300/20 hover:bg-opacity-40"
-                />
+              />
 
               {/* Password Input with Toggle */}
               <motion.div
@@ -109,7 +112,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
                   }
                   required
                   className="w-full mt-2 p-3 bg-gray-400/10 bg-opacity-30 backdrop-blur-md text-white rounded-xl border border-white/20 shadow-inner focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 ease-in-out hover:bg-gray-300/20 hover:bg-opacity-40"
-                  />
+                />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -126,7 +129,11 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
                 transition={{ delay: 0.6, duration: 0.3 }}
                 className="flex justify-center"
               >
-                <Button className="w-full" onClick={handleLogin} disabled={loading}>
+                <Button
+                  className="w-full"
+                  onClick={handleLogin}
+                  disabled={loading}
+                >
                   {loading ? "Logging in..." : "Log In"}
                 </Button>
               </motion.div>
@@ -165,7 +172,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
               transition={{ delay: 0.8, duration: 0.3 }}
               className="mt-4 text-center text-gray-400"
             >
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <button
                 onClick={() => router.push("/signup")}
                 className="text-purple-400 hover:underline"
