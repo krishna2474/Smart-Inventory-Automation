@@ -43,7 +43,7 @@ export default function RootLayout({
       />
       
         {children} {/* Main page content */}
-        {modal} {/* This will render the modal when needed */}
+        {/* {modal} This will render the modal when needed */}
       </body>
     </html>
   );
