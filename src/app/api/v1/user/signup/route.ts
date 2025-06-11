@@ -2,8 +2,10 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../../../../../../config";
-
+// import { JWT_SECRET } from "../../../../../../config";
+import dotenv from "dotenv";
+dotenv.config();
+const { JWT_SECRET } = process.env;
 export async function POST(req: Request) {
   try {
     const { firstName, lastName, email, password } = await req.json();
@@ -45,7 +47,7 @@ export async function POST(req: Request) {
     if (newUser) {
       const token = jwt.sign(
         { id: newUser.user_id, email: newUser.email, role: newUser.role },
-        JWT_SECRET,
+        JWT_SECRET as string,
         { expiresIn: "7d" } // Token expires in 7 days
       );
       return NextResponse.json(

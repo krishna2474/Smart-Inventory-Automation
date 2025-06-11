@@ -2,12 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import { prisma } from "@/lib/prisma";
 import { GoogleGenAI } from "@google/genai";
-import {
+// import {
+//   CLOUDINARY_API_KEY,
+//   CLOUDINARY_API_SECRET,
+//   CLOUDINARY_CLOUD_NAME,
+//   GEMINI_API_KEY,
+// } from "../../../../../config";
+import dotenv from "dotenv";
+dotenv.config();
+
+const {
   CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET,
   CLOUDINARY_CLOUD_NAME,
   GEMINI_API_KEY,
-} from "../../../../../config";
+} = process.env;
 
 cloudinary.config({
   cloud_name: CLOUDINARY_CLOUD_NAME!,

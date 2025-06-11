@@ -1,7 +1,10 @@
 // src/app/api/v1/verify-token/route.ts
 import { NextResponse, NextRequest } from 'next/server';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { JWT_SECRET } from  '../../../../../config'; 
+// import { JWT_SECRET } from  '../../../../../config';
+import dotenv from 'dotenv';
+dotenv.config();
+const { JWT_SECRET } = process.env; 
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get('authorization');
   console.log('Received Authorization Header:', authHeader); // Debugging line
